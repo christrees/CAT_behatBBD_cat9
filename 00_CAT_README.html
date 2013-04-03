@@ -5,7 +5,6 @@
  		<li>Fusion 5 VM on catmini</li>
  		<li>/Users/cat/Documents/Virtual Machines.localized/Ubuntu 64-bit.vmwarevm</li>
  		<li>4 cores - 1024MB - 20GB</li>
- 		<li>cat - Gray9Test</li>
  	</ol>
  </li>
  <li><a href="https://help.ubuntu.com/8.04/serverguide/httpd.html"></a>Install Apache2 on Ubuntu
@@ -95,6 +94,95 @@ cat@ubuntu:~/public_html/behatch-skeleton$ </pre><hr/>
  <li>cat@ubuntu:~/public_html/behatch-skeleton$ ./bin/behat</li>
  <li>Hack on .features files in features/ and repeat</li>
  </ol>
+</ol>
+<h4>Notes Repo Storeage</h4>
+<ol>
+  <li>Given that the repo seed was behatch-skeleton and we want to create CAT_behatBBD_cat9 Test Project name</li>
+  <li>Setup ssh to go to correct port on cat9.com<hr/><pre>
+cat@ubuntu:~$ cd .ssh
+cat@ubuntu:~/.ssh$ ls
+known_hosts
+cat@ubuntu:~/.ssh$ vi config
+cat@ubuntu:~/.ssh$ cat config 
+Host cat9.com
+User cat
+Port 2222
+cat@ubuntu:~/.ssh$
+  </pre><hr/></li>
+  <li>Create the target repo on cat9.com<hr/><pre>
+cat@ubuntu:~$ ssh cat@cat9.com -p 2222
+The authenticity of host '[cat9.com]:2222 ([74.53.236.190]:2222)' can't be established.
+RSA key fingerprint is 27:00:a1:cc:0c:2b:0a:87:31:63:3b:c2:54:54:9e:74.
+Are you sure you want to continue connecting (yes/no)? yes
+Warning: Permanently added '[cat9.com]:2222,[74.53.236.190]:2222' (RSA) to the list of known hosts.
+cat@cat9.com's password: 
+Last login: Mon Apr  1 12:27:11 2013 from 24.149.29.247
+cat@cat9.com [~]# cd repo/
+cat@cat9.com [~/repo]# mkdir CAT_behatBBD_cat9.git
+cat@cat9.com [~/repo]# cd CAT_behatBBD_cat9.git/
+cat@cat9.com [~/repo/CAT_behatBBD_cat9.git]# git --bare init
+Initialized empty Git repository in /home/cat/repo/CAT_behatBBD_cat9.git/
+cat@cat9.com [~/repo/CAT_behatBBD_cat9.git]# 
+  </pre><hr/></li>
+  <li>In the behatch-skeleton<hr/><pre>
+cat@ubuntu:~/public_html/behatch-skeleton$ rm -rf .git
+cat@ubuntu:~/public_html/behatch-skeleton$ cd ..
+cat@ubuntu:~/public_html$ mv behatch-skeleton CAT_behatBBD_cat9
+cat@ubuntu:~/public_html$ cd CAT_behatBBD_cat9/
+cat@ubuntu:~/public_html/CAT_behatBBD_cat9$ git init
+Initialized empty Git repository in /home/cat/public_html/CAT_behatBBD_cat9/.git/
+cat@ubuntu:~/public_html/CAT_behatBBD_cat9$ rm *.png
+cat@ubuntu:~/public_html/CAT_behatBBD_cat9$ git add .
+cat@ubuntu:~/public_html/CAT_behatBBD_cat9$ git commit -m "Initial Commit"
+[master (root-commit) e67e6c7] Initial Commit
+ Committer: cat <cat@ubuntu.(none)>
+Your name and email address were configured automatically based
+on your username and hostname. Please check that they are accurate.
+You can suppress this message by setting them explicitly:
+
+    git config --global user.name "Your Name"
+    git config --global user.email you@example.com
+
+After doing this, you may fix the identity used for this commit with:
+
+    git commit --amend --reset-author
+
+ 10 files changed, 232 insertions(+)
+ create mode 100644 .gitignore
+ create mode 100644 .travis.yml
+ create mode 100644 00_CAT_README.html
+ create mode 100644 LICENSE
+ create mode 100644 README.md
+ create mode 100644 behat.yml-dist
+ create mode 100644 composer.json
+ create mode 100644 features/bootstrap/Bootstrap.php
+ create mode 100644 features/bootstrap/contexts/FeatureContext.php
+ create mode 100644 features/webBrowser.feature
+cat@ubuntu:~/public_html/CAT_behatBBD_cat9$ git remote add private cat@cat9.com:repo/CAT_behatBBD_cat9.git
+cat@ubuntu:~/public_html/CAT_behatBBD_cat9$ git push private master
+cat@cat9.com's password: 
+Counting objects: 15, done.
+Delta compression using up to 4 threads.
+Compressing objects: 100% (14/14), done.
+Writing objects: 100% (15/15), 3.99 KiB, done.
+Total 15 (delta 1), reused 0 (delta 0)
+To cat@cat9.com:repo/CAT_behatBBD_cat9.git
+ * [new branch]      master -> master
+cat@ubuntu:~/public_html/CAT_behatBBD_cat9$ 
+</pre><hr/></li>
+  <li>Update so this file 00_CAT_README.html is in the repo<hr/><pre>
+cat@ubuntu:~/public_html/CAT_behatBBD_cat9$ git add .
+cat@ubuntu:~/public_html/CAT_behatBBD_cat9$ git commit -m "Initial Commit"
+cat@ubuntu:~/public_html/CAT_behatBBD_cat9$ git push private
+</pre><hr/></li>
+  <li>This is all public... so add to github repo
+    <ol>
+      <li><a href="https://help.github.com/articles/creating-a-new-repository">Create new github repository</a></li>
+      <li>Add remote github and push<hr/><pre>
+cat@ubuntu:~/public_html/CAT_behatBBD_cat9$ git remote add github https://github.com/christrees/CAT_behatBBD_cat9.git
+cat@ubuntu:~/public_html/CAT_behatBBD_cat9$ git push -u github master
+</pre><hr/></li>
+  <li><a href="https://github.com/christrees/CAT_behatBBD_cat9">View on GitHub</a>
 </ol>
 <h4>Notes</h4>
 <ol>
